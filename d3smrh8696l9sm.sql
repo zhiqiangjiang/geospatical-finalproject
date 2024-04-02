@@ -1,7 +1,7 @@
 -- Adminer 4.8.1 PostgreSQL 14.2 (Ubuntu 14.2-1.pgdg20.04+1) dump
 
-DROP TABLE IF EXISTS "accidents2017";
-CREATE TABLE "public"."accidents2017" (
+DROP TABLE IF EXISTS "accidents2023";
+CREATE TABLE "public"."accidents2023" (
     "incident_info" text NOT NULL,
     "description" text NOT NULL,
     "start_dt" text NOT NULL,

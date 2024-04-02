@@ -5,7 +5,7 @@ var aData;
 // Create map
 var map = L.map('map').setView([51.049999, -114.066666], 10);
 
-var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoidG9tamlhbmciLCJhIjoiY2xzd2c5cHl4MnhmeDJtb3c0eG42dnNkNCJ9.giGi3qo495sg__Z9EO1w0w', {
     maxZoom: 18,
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
         'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -257,11 +257,11 @@ function updateAnalytics() {
 
     var change = percentIncrease(aData.accidents, accidents);
     if(change < 0){
-        document.getElementById("changeperc").innerHTML = "There are " + change + "% incidents today than in 2017.";  
+        document.getElementById("changeperc").innerHTML = "There are " + change + "% incidents today than in 2023.";  
     } else if (change > 0) {
-        document.getElementById("changeperc").innerHTML = "There are +" + change + "% incidents today than in 2017."; 
+        document.getElementById("changeperc").innerHTML = "There are +" + change + "% incidents today than in 2023."; 
     } else {
-        document.getElementById("changeperc").innerHTML = "There are the same number of incidents today when compared to 2017"; 
+        document.getElementById("changeperc").innerHTML = "There are the same number of incidents today when compared to 2023"; 
     }
     document.getElementById("canalyticsmsg").innerHTML = "<strong>Number of Incidents: </strong>" + accidents;
     document.getElementById("cneaccidents").innerHTML = "<strong>Incidents in the NE Quadrant: </strong>" + accidentsne;

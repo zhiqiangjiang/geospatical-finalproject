@@ -6,6 +6,7 @@ from flask import Flask, session, render_template, request, redirect, jsonify
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.sql import text
 from datetime import datetime
 
 app = Flask(__name__)
@@ -27,7 +28,7 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 
 db = scoped_session(sessionmaker(bind=engine))
-
+print("Database connected")
 # Default page redirects
 @app.route("/")
 def index():
@@ -41,7 +42,7 @@ def login():
         loginUsername = request.form.get("username")
         loginPassword = request.form.get("password")
         
-        result = db.execute("SELECT * FROM users WHERE username = :username AND password=:password", {"username":loginUsername, "password":loginPassword}).fetchone()
+        result = db.execute(text("SELECT * FROM users WHERE username = :username AND password=:password"), {"username":loginUsername, "password":loginPassword}).fetchone()
         if result is None:
             return render_template("login.html", message="Invalid username or password.")
         
@@ -63,9 +64,9 @@ def register():
         registerUsername = request.form.get("username")
         registerPassword = request.form.get("password")
 
-        userExists = db.execute("SELECT * FROM users WHERE username = :username", {"username":registerUsername}).fetchone()
+        userExists = db.execute(text("SELECT * FROM users WHERE username = :username"), {"username":registerUsername}).fetchone()
         if not userExists:
-            db.execute("INSERT INTO users (username, password) VALUES (:username, :password)", {"username":registerUsername, "password":registerPassword})
+            db.execute(text("INSERT INTO users (username, password) VALUES (:username, :password)"), {"username":registerUsername, "password":registerPassword})
             db.commit()
             return render_template("register.html", message="Account created successfully.")
         return render_template("register.html", message="User already exists.")
@@ -84,7 +85,7 @@ def logout():
 def home():
     if request.method == "GET":
         if session:
-            results = db.execute("SELECT * FROM updates ORDER BY update_time DESC LIMIT 10").fetchall()
+            results = db.execute(text("SELECT * FROM updates ORDER BY update_time DESC LIMIT 10")).fetchall()
             if len(results) == 0:
                 return render_template("home.html", message="No Updates", welcome=("Signed in as: "+ session["user_id"]))
 
@@ -99,15 +100,15 @@ def home():
             comments = request.form.get("comments")
 
             if location=="" or comments=="":
-                results = db.execute("SELECT * FROM updates ORDER BY update_time DESC LIMIT 10").fetchall()
+                results = db.execute(text("SELECT * FROM updates ORDER BY update_time DESC LIMIT 10")).fetchall()
                 if len(results) == 0:
                     return render_template("home.html", message="No Updates", error="All fields must be filled in", welcome=("Signed in as: "+ session["user_id"]))
                 return render_template("home.html", results = results, error="All fields must be filled in", welcome=("Signed in as: "+ session["user_id"]))      
 
-            db.execute("INSERT INTO updates (update_user, comments, update_location, update_time) VALUES(:currentuser, :comments, :location, current_timestamp(0))", {"currentuser": currentuser, "comments":comments, "location": location})
+            db.execute(text("INSERT INTO updates (update_user, comments, update_location, update_time) VALUES(:currentuser, :comments, :location, current_timestamp(0))"), {"currentuser": currentuser, "comments":comments, "location": location})
             db.commit()
 
-            results = db.execute("SELECT * FROM updates ORDER BY update_time DESC LIMIT 10").fetchall()            
+            results = db.execute(text("SELECT * FROM updates ORDER BY update_time DESC LIMIT 10")).fetchall()            
             if len(results) == 0:
                 return render_template("home.html", message="No Updates", welcome=("Signed in as: "+ session["user_id"]))
 
@@ -122,7 +123,7 @@ def updates():
     # Checks if user is logged in
     if request.method == "GET":
         if session:
-            results = db.execute("SELECT * FROM updates ORDER BY update_time DESC").fetchall()
+            results = db.execute(text("SELECT * FROM updates ORDER BY update_time DESC")).fetchall()
             if len(results) == 0:
                 return render_template("updates.html", message="No Updates", welcome=("Signed in as: "+ session["user_id"]))
 
@@ -137,20 +138,23 @@ def analytics():
         current_month = datetime.now().strftime('%m')
         current_day = datetime.now().strftime('%d')
         current_time = current_month + "/" + current_day
-        accidents = db.execute("SELECT count(*) FROM accidents2017 WHERE start_dt LIKE '%' || :current_time || '%'", {"current_time":current_time}).fetchone()
+        accidents = db.execute(text("SELECT count(*) FROM accidents2023 WHERE start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
         accidents = accidents[0]
 
-        accidentsNE = db.execute("SELECT count(*) FROM accidents2017 WHERE quadrant='NE' AND start_dt LIKE '%' || :current_time || '%'", {"current_time":current_time}).fetchone()
+        accidentsNE = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='NE' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
         accidentsNE = accidentsNE[0]
 
-        accidentsNW = db.execute("SELECT count(*) FROM accidents2017 WHERE quadrant='NW' AND start_dt LIKE '%' || :current_time || '%'", {"current_time":current_time}).fetchone()
+        accidentsNW = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='NW' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
         accidentsNW = accidentsNW[0]
 
-        accidentsSE = db.execute("SELECT count(*) FROM accidents2017 WHERE quadrant='SE' AND start_dt LIKE '%' || :current_time || '%'", {"current_time":current_time}).fetchone()
+        accidentsSE = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='SE' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
         accidentsSE = accidentsSE[0]
 
-        accidentsSW = db.execute("SELECT count(*) FROM accidents2017 WHERE quadrant='SW' AND start_dt LIKE '%' || :current_time || '%'", {"current_time":current_time}).fetchone()
+        accidentsSW = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='SW' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
         accidentsSW = accidentsSW[0]        
 
         message = {'accidents':accidents, 'accidentsNE':accidentsNE, 'accidentsNW':accidentsNW, 'accidentsSE':accidentsSE, 'accidentsSW':accidentsSW}
         return jsonify(message) 
+
+if __name__ == '__main__':
+    app.run(debug=True)
