@@ -7,7 +7,7 @@ Our final project is a web application called Volunteered Driver Traffic Inciden
 Users can register and login with a username and password (saved to database). After logging in, users can interact with the leaflet map. Traffic Cameras are blue markers, while traffic incidents are red markers. Clicking on each marker will provide detailed information (such as a camera feed image of a traffic camera) through a pop-up.
 The map will automatically refresh every 10 minutes to check for new incident updates as well as camera images. The user can also manually refresh by clicking the Refresh Map button. Below the map, there is an update section where users can view and post updates. These updates are saved to the database. The updates are sorted by most recent appearing at the top, and the number of records is limited to 10 so the page doesn't become too long. Users can click "View All Updates" to view all of the updates posted by users sorted by most recent as well. The Post Update area requires the user to enter a location description as well as an incident description. Below the post update area is the Traffic Incident Analytics section. Stats of traffic incidents within the last 24 hours are displayed and are compared to historical data. The analytics currently shows the number of incidents, the number of incidents in each quadrant, and the total increase/decrease in incidents compared to historical data.
 
-new func: transfer an update to an unoffical accident, analytics include unofficial accidents data.
+new func: upload an image and poistion from phone, analytics include unofficial accidents data.
 
 # Restful API Backend
 - Login Page: Post request to authenticate user and check credentials in database / Get request to render template

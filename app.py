@@ -8,8 +8,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.sql import text
 from datetime import datetime
+from werkzeug.utils import secure_filename
 
-app = Flask(__name__)
+#app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
+
 app.config['JSON_SORT_KEYS'] = False
 
 # Check for environment variable 
@@ -28,7 +31,8 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 
 db = scoped_session(sessionmaker(bind=engine))
-print("Database connected")
+
+
 # Default page redirects
 @app.route("/")
 def index():
@@ -80,6 +84,16 @@ def logout():
     session.clear()
     return redirect("/login")
 
+#handle image upload
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ['jpg', 'jpeg', 'png'] 
+
+
 # Map Home Page
 @app.route("/home", methods=["GET", "POST"])
 def home():
@@ -99,13 +113,31 @@ def home():
             location = request.form.get("locdesc")
             comments = request.form.get("comments")
 
+            file = request.files['cameraInput']
+            latitude = request.form.get('latitude')
+            longitude = request.form.get('longitude')
+
+            print("latitude: ", latitude)
+            print("longitude: ", longitude)
+            print("filename: ", file.filename)
+            if latitude=="" or longitude=="":
+                latitude = 0
+                longitude = 0
+            
             if location=="" or comments=="":
                 results = db.execute(text("SELECT * FROM updates ORDER BY update_time DESC LIMIT 10")).fetchall()
                 if len(results) == 0:
                     return render_template("home.html", message="No Updates", error="All fields must be filled in", welcome=("Signed in as: "+ session["user_id"]))
                 return render_template("home.html", results = results, error="All fields must be filled in", welcome=("Signed in as: "+ session["user_id"]))      
+            
+            unique_filename = "noimage"
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                unique_filename = f'{datetime.now().strftime("%Y%m%d%H%M%S%f")}_{filename}'
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], unique_filename))
+            
 
-            db.execute(text("INSERT INTO updates (update_user, comments, update_location, update_time) VALUES(:currentuser, :comments, :location, current_timestamp(0))"), {"currentuser": currentuser, "comments":comments, "location": location})
+            db.execute(text("INSERT INTO updates (update_user, comments, update_location, update_time, photo_filename,longitude,latitude) VALUES(:currentuser, :comments, :location, current_timestamp(0), :unique_filename, :longitude, :latitude)"), {"currentuser": currentuser, "comments":comments, "location": location, "unique_filename": unique_filename, "longitude": longitude, "latitude": latitude})
             db.commit()
 
             results = db.execute(text("SELECT * FROM updates ORDER BY update_time DESC LIMIT 10")).fetchall()            
@@ -156,5 +188,11 @@ def analytics():
         message = {'accidents':accidents, 'accidentsNE':accidentsNE, 'accidentsNW':accidentsNW, 'accidentsSE':accidentsSE, 'accidentsSW':accidentsSW}
         return jsonify(message) 
 
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
+
+
+

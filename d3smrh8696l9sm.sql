@@ -1,4 +1,3 @@
--- Adminer 4.8.1 PostgreSQL 14.2 (Ubuntu 14.2-1.pgdg20.04+1) dump
 
 DROP TABLE IF EXISTS "accidents2023";
 CREATE TABLE "public"."accidents2023" (
@@ -22,6 +21,9 @@ CREATE TABLE "public"."updates" (
     "update_id" integer DEFAULT nextval('updates_update_id_seq') NOT NULL,
     "update_time" timestamp NOT NULL,
     "update_location" text NOT NULL,
+    "longitude" text,
+    "latitude" text,
+    "photo_filename" text,
     CONSTRAINT "updates_pkey" PRIMARY KEY ("update_id")
 ) WITH (oids = false);
 
@@ -38,4 +40,3 @@ CREATE TABLE "public"."users" (
 ) WITH (oids = false);
 
 
--- 2022-04-07 10:49:10.372645+00
