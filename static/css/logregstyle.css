@@ -1,4 +1,4 @@
-.logintopsection {
+/* .logintopsection {
   position: relative;
   background-color: #333;
   overflow: hidden;
@@ -47,4 +47,76 @@ input[class=form-control] {
 #loginerror {text-align: center;}
 #registererror {text-align: center;}
 #registertitle {text-align: center;}
-#logintitle {text-align: center;}
+#logintitle {text-align: center;} */
+/* 设置整个网页背景为深色 */
+body {
+  background-color: #1a1a1a;
+  color: #ccc; /* 文字颜色为浅色以增强对比度 */
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+.logintopsection,
+.registertopsection {
+  position: relative;
+  background-color: #222; /* 较深的背景色以区分不同的区块 */
+  overflow: hidden;
+  text-align: center;
+  padding: 1rem 0; /* 添加内边距提升可读性 */
+}
+
+hr.rounded {
+  border-top: 4px solid #555;
+  border-radius: 5px;
+  margin: 2rem 0;
+}
+
+button {
+  background-color: #04AA6D; /* 登录/注册按钮保持原色 */
+  color: #fff;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 4px; /* 添加圆角以配合整体设计风格 */
+}
+
+input.form-control {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #444; /* 边框颜色变暗以适应深色背景 */
+  box-sizing: border-box;
+  text-align: center;
+  background-color: #282828; /* 输入框背景色加深 */
+  color: #ccc;
+}
+
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+#logintoptitle, 
+#registertoptitle {
+  display: inline-block;
+  text-align: center;
+  color: #ccc;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+#loginerror, 
+#registererror {
+  text-align: center;
+  color: #ff6b6b; /* 错误提示信息使用红色以引起注意 */
+}
+
+#registertitle, 
+#logintitle {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+}

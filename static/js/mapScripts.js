@@ -75,15 +75,24 @@ function createTI(lat, lng, info, desc, startdt, quadrant){
     var description = "Type: " + desc + "<br> Location: " + info + "<br> Start DateTime: " + startdt + "<br> Quadrant: " + quadrant;
     marker.bindPopup(description);
     marker.addTo(map);
+
 }
 
 // Create Volunteer Traffic Incident Point
-function createVI(lat, lng, info, desc, startdt, quadrant){
+function createVI(lat, lng, info, desc, startdt, quadrant,photoname){
     var loc = new L.LatLng(lat, lng);
     var marker = new L.Marker(loc, {icon: greenIcon});
-    var description = "Type: " + desc + "<br> Location: " + info + "<br> Start DateTime: " + startdt + "<br> Upload User: " + quadrant;
+    // var photo = '<img src="'+ camurl +'" style="width:252px;height:189px;">';
+    const staticUrlPrefix = '/static/uploads/';
+    var photo = '<img src="' + staticUrlPrefix + photoname + '" style="width:252px;height:189px;">';
+    // console.log(photo);
+    // var description = "Type: " + desc + "<br> Location: " + info + "<br> Start DateTime: " + startdt + "<br> Upload User: " + quadrant;
+    var description = "Type: " + desc + "<br> Location: " + info + "<br> Start DateTime: " + startdt + "<br> Upload User: " + quadrant+ "<br>" + photo;
     marker.bindPopup(description);
     marker.addTo(map);
+
+    
+
 }
 
 //Get today's datetime
@@ -206,7 +215,7 @@ function populateMap(){
         success: function(data) {
             console.log("Successfully fetched DB positions: ", data);
             data.forEach(function(position) {
-                createVI(position.latitude, position.longitude, position.location, position.description, position.timestamp, position.user);
+                createVI(position.latitude, position.longitude, position.location, position.description, position.timestamp, position.user, position.photoname);
             });
         },
         error: function(error) {
@@ -232,8 +241,8 @@ function refreshMap(){
 
 // Auto refresh map after every 10 minutes
 async function autoRefresh(){
-    aData = await fetchAnalytics();
-    cData = await fetchCurrent();
+    // aData = await fetchAnalytics();
+    // cData = await fetchCurrent();
 
     map.eachLayer(function(layer) {
         if(!!layer.toGeoJSON) {
@@ -243,7 +252,7 @@ async function autoRefresh(){
     oms.clearMarkers();
     markers.clearLayers();
     populateMap();
-    updateAnalytics();
+   // updateAnalytics();
     setTimeout(autoRefresh, 600000);
 }
 

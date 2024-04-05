@@ -17,7 +17,7 @@
         <div class="topsection">
             <div id="toptitle">
                 <h1>
-                    Volunteered Driver Traffic Incidents Platform
+                    Volunteered Driver Incidents Platform
                 </h1>
             </div>
             <div id="signedin">
@@ -37,8 +37,11 @@
                 Traffic Cameras: 
                 <img alt="Blue Icon" src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png" style="width: 25px; height: 41px; display: inline-block;"> 
                 &nbsp;
-                Traffic Incidents: 
+                Incidents(Official): 
                 <img alt="Red Icon" src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png" style="width: 25px; height: 41px; display: inline-block;">
+                &nbsp;
+                Incidents(Driver Reported): 
+                <img alt="Green Icon" src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png" style="width: 25px; height: 41px; display: inline-block;">
             </h4>
             
         </div>
@@ -86,7 +89,7 @@
         {{errormsg}}
         {% endif %}
         <h2>
-            <strong>Post Update:</strong>
+            <strong>Report Incident:</strong>
         </h2>
         <p>
             <!-- <form action="{{ url_for('home') }}" method="post"> -->
@@ -131,7 +134,7 @@
             {{pmessage}}
             {% endif %}
         </p>          
-        <br/>
+        <!-- <br/>
         <hr class="rounded">
         <br/>
         <div class="analyticsection">
@@ -154,7 +157,7 @@
             <p id="nwaccidents"></p>
             <p id="seaccidents"></p>
             <p id="swaccidents"></p>
-        </div>
+        </div> -->
         <script src="{{ url_for('static', filename='js/mapScripts.js') }}"></script>
     </body>
 </html>

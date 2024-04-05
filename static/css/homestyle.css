@@ -1,4 +1,4 @@
-
+/* 
 .topsection {
     position: relative;
     background-color: #333;
@@ -37,4 +37,95 @@ hr.rounded {
 #usignedin {position: absolute; top: 8px; left: 16px; font-size: 18px; color: whitesmoke;}
 #ulogout {position: absolute; top: 8px; right: 16px; font-size: 18px; color: whitesmoke;}
 #refreshsection {text-align: center;}
-#updatetitle {text-align: center;}
+#updatetitle {text-align: center;} */
+
+/* 顶部区域，统一类名减少冗余 */
+.topsection, 
+.utopsection {
+    position: relative;
+    background-color: #1a1a1a; /* 更深的背景色 */
+    color: #ccc; /* 更浅的文字颜色以增加对比度 */
+    overflow: hidden;
+    text-align: center;
+    padding: 1rem 0; /* 添加内边距提升可读性 */
+}
+
+.updatesection,
+.mapsection {
+    position: relative;
+    overflow: hidden;
+    background-color: #222; /* 可以根据需要更改子区域背景色 */
+    color: #fff; /* 白色文字 */
+}
+
+/* 地图容器居中显示 */
+#map {
+    margin: 0 auto;
+    height: 100vh; /* 或者设定一个合适的高度以适应屏幕 */
+}
+
+/* 标题样式优化 */
+#toptitle, #utoptitle {
+    display: inline-block;
+    text-align: center;
+    font-size: 1.5em; /* 增大标题字号 */
+    font-weight: bold; /* 加粗标题 */
+    margin-bottom: 1rem; /* 与下文元素间隔 */
+}
+
+/* 已登录用户信息及登出按钮 */
+#signedin, #usignedin {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    font-size: 18px;
+    color: #ccc;
+    opacity: 0.8; /* 降低不活动元素的透明度 */
+}
+
+#logout, #ulogout {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;
+    color: #ccc;
+    opacity: 0.8;
+    cursor: pointer; /* 给登出按钮添加手型光标 */
+}
+
+/* 刷新区域和更新标题样式 */
+#refreshsection {
+    text-align: center;
+    padding: 1rem;
+}
+
+#updatetitle {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* 分割线样式优化 */
+hr.rounded {
+    border-top: 4px solid #555; /* 更深的分割线颜色 */
+    border-radius: 5px;
+    margin: 2rem 0;
+}
+
+/* 添加一些全局样式以改善整体观感 */
+body {
+    background-color: #1a1a1a; /* 设置一个深色背景 */
+    color: #ccc; /* 文本颜色应为浅色以保证对比度 */
+    font-family: 'Roboto', Arial, sans-serif; /* 推荐使用清晰易读的字体 */
+    line-height: 1.6; /* 提高阅读体验 */
+}
+
+a {
+    color: #777; /* 链接颜色 */
+    transition: all 0.2s ease-in-out; /* 添加过渡效果 */
+}
+
+a:hover {
+    color: #fff; /* 鼠标悬停时链接颜色 */
+    text-decoration: underline; /* 下划线效果 */
+}
