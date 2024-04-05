@@ -84,6 +84,18 @@ def logout():
     session.clear()
     return redirect("/login")
 
+# API to get positions
+@app.route('/api/positions', methods=['GET'])
+def get_positions():
+    print("ajax request")
+    if session:
+        positions = db.execute(text("SELECT * FROM updates ORDER BY update_time DESC")).fetchall()
+        positions_list = [{'latitude': pos.latitude, 'longitude': pos.longitude, 'location': pos.update_location, 'description': pos.comments, 'timestamp': pos.update_time, 'user': pos.update_user} for pos in positions]
+        print(positions_list)
+        return jsonify(positions_list)
+    else:
+        return redirect("/login")
+
 #handle image upload
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -109,6 +121,7 @@ def home():
     
     if request.method == "POST":
         if session:
+
             currentuser = session["user_id"]
             location = request.form.get("locdesc")
             comments = request.form.get("comments")
@@ -130,7 +143,7 @@ def home():
                     return render_template("home.html", message="No Updates", error="All fields must be filled in", welcome=("Signed in as: "+ session["user_id"]))
                 return render_template("home.html", results = results, error="All fields must be filled in", welcome=("Signed in as: "+ session["user_id"]))      
             
-            unique_filename = "noimage"
+            unique_filename = "No_Image_Available.jpg"
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 unique_filename = f'{datetime.now().strftime("%Y%m%d%H%M%S%f")}_{filename}'

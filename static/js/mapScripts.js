@@ -48,6 +48,15 @@ var blueIcon = new L.Icon({
     shadowSize: [41, 41]
 });
 
+var greenIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
 // Create Traffic Camera Point
 function createTC(lat, lng, desc, camurl, camloc, quadrant){
     var loc = new L.LatLng(lat, lng);
@@ -59,11 +68,20 @@ function createTC(lat, lng, desc, camurl, camloc, quadrant){
     oms.addMarker(marker);
 }
 
-// Create Traffic Incident Point
+// Create Official Traffic Incident Point
 function createTI(lat, lng, info, desc, startdt, quadrant){
     var loc = new L.LatLng(lat, lng);
     var marker = new L.Marker(loc, {icon: redIcon});
     var description = "Type: " + desc + "<br> Location: " + info + "<br> Start DateTime: " + startdt + "<br> Quadrant: " + quadrant;
+    marker.bindPopup(description);
+    marker.addTo(map);
+}
+
+// Create Volunteer Traffic Incident Point
+function createVI(lat, lng, info, desc, startdt, quadrant){
+    var loc = new L.LatLng(lat, lng);
+    var marker = new L.Marker(loc, {icon: greenIcon});
+    var description = "Type: " + desc + "<br> Location: " + info + "<br> Start DateTime: " + startdt + "<br> Upload User: " + quadrant;
     marker.bindPopup(description);
     marker.addTo(map);
 }
@@ -175,10 +193,25 @@ function populateMap(){
             var yesterday = getYesterday();
             if(date.indexOf(today) > -1) {
                 // date contains today
-                console.log("Incident " + obj.id + " occurred today.");
+                //console.log("Incident " + obj.id + " occurred today.");
                 createTI(obj.point.coordinates[1], obj.point.coordinates[0], obj.incident_info, obj.description, obj.start_dt, obj.quadrant);
             }
         });
+    });
+    // createTI(51.049999, -114.066666, "Incident Info", "Description", "2023-01-01T00:00:00", "NE");
+    $.ajax({
+        type: "GET",
+        url: "/api/positions", // Your server-side endpoint that fetches positions
+        dataType: "json",
+        success: function(data) {
+            console.log("Successfully fetched DB positions: ", data);
+            data.forEach(function(position) {
+                createVI(position.latitude, position.longitude, position.location, position.description, position.timestamp, position.user);
+            });
+        },
+        error: function(error) {
+            console.error("Error fetching DB positions: ", error);
+        }
     });
     map.addLayer(markers);
 }
