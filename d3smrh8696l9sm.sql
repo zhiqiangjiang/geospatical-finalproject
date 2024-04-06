@@ -11,20 +11,21 @@ CREATE TABLE "public"."accidents2023" (
 ) WITH (oids = false);
 
 
-DROP TABLE IF EXISTS "updates";
-DROP SEQUENCE IF EXISTS updates_update_id_seq;
-CREATE SEQUENCE updates_update_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+DROP TABLE IF EXISTS "reports";
+DROP SEQUENCE IF EXISTS reports_report_id_seq;
+CREATE SEQUENCE reports_report_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
 
-CREATE TABLE "public"."updates" (
-    "update_user" text NOT NULL,
+CREATE TABLE "public"."reports" (
+    "report_user" text NOT NULL,
     "comments" text NOT NULL,
-    "update_id" integer DEFAULT nextval('updates_update_id_seq') NOT NULL,
-    "update_time" timestamp NOT NULL,
-    "update_location" text NOT NULL,
+    "report_id" integer DEFAULT nextval('reports_report_id_seq') NOT NULL,
+    "report_time" timestamp NOT NULL,
+    "report_location" text NOT NULL,
     "longitude" text,
     "latitude" text,
     "photo_filename" text,
-    CONSTRAINT "updates_pkey" PRIMARY KEY ("update_id")
+    "video_filename" text,
+    CONSTRAINT "reports_pkey" PRIMARY KEY ("report_id")
 ) WITH (oids = false);
 
 
