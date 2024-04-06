@@ -127,12 +127,14 @@ def home():
             comments = request.form.get("comments")
 
             file = request.files['cameraInput']
+            file2 = request.files['videoInput']
             latitude = request.form.get('latitude')
             longitude = request.form.get('longitude')
 
             print("latitude: ", latitude)
             print("longitude: ", longitude)
             print("filename: ", file.filename)
+            print("filename2: ", file2.filename)
             print("location: ", location)
             print("comments: ", comments)
             if latitude=="" or longitude=="":
