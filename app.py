@@ -98,11 +98,11 @@ def get_positions():
         #     if position.get('video_filename') == "No_Video_Available.mp4":
         #         print("video filename2: ", position.get('video_filename'))
         #         position['video_filename'] = None
-        for position in positions_list:
-            print("video filename: ", position.get('videoname'))
-            if position.get('videoname') == "No_Video_Available.mp4":
-                print("Changing 'videoname' to None for: ", position.get('videoname'))
-                position['videoname'] = None  # Correctly use the key 'videoname'
+        # for position in positions_list:
+        #     print("video filename: ", position.get('videoname'))
+            # if position.get('videoname') == "No_Video_Available.mp4":
+            #     print("Changing 'videoname' to None for: ", position.get('videoname'))
+            #     position['videoname'] = None  # Correctly use the key 'videoname'
 
         return jsonify(positions_list)
     else:
