@@ -52,39 +52,6 @@
             <button type="button" id="refreshButton" onclick="refreshMap()">Refresh Map</button>  
         </div>
         <br/>
-        <br/>
-        <hr class="rounded">
-        <div class="updatesection">
-            <h2>
-                <strong>Recent Driver Reports</strong>
-            </h2>
-            <form action="{{ url_for('home') }}" method="get">
-                <button class="btn btn-primary" type="submit">Refresh</button>    
-            </form>
-            <br/>
-            {% if message %}
-            {{message}}
-            {% endif %}
-            {% if results %}        
-                {% for result in results %}
-                    <ul>
-                        <strong>Reported by: </strong> {{ result.update_user }}&nbsp;&nbsp;&nbsp;
-                        <strong>Location: </strong> {{ result.update_location }}&nbsp;&nbsp;&nbsp;
-                        <strong>Incident: </strong> {{ result.comments }}&nbsp;&nbsp;&nbsp;
-                        <strong>Latitue: </strong> {{ result.latitude }}&nbsp;&nbsp;&nbsp;
-                        <strong>Longitude: </strong> {{ result.longitude }}&nbsp;&nbsp;&nbsp;
-                        <strong>Timestamp: </strong> {{result.update_time}}
-                        <br>
-                        <strong>Uploaded photo with this report: </strong> 
-                        <br>
-                        <img src="{{ url_for('static', filename='uploads/' + result.photo_filename) }}" alt="Uploaded Image" style="max-width: 200px;">
-                    </ul>
-                {% endfor %}
-            {% endif %}
-            <br/>
-            <a href="/updates">View All Reports</a>
-        </div>
-        <br/>
         <hr class="rounded">
         {% if errormsg %}
         {{errormsg}}
@@ -97,11 +64,11 @@
             <form action="{{ url_for('home') }}" method="post" enctype="multipart/form-data" id="subForm">
                 <div class="form-group">    
                     Location Description:
-                        <textarea name="locdesc" id="locdesc" class="form-control" rows="4" required></textarea>
+                        <textarea name="locdesc" id="locdesc" class="form-control" rows="2" required></textarea>
                 </div>
                 <div class="form-group">
                     Incident Description:
-                        <textarea name="comments" id="comments" class="form-control" rows="4" required></textarea>
+                        <textarea name="comments" id="comments" class="form-control" rows="2" required></textarea>
                 </div>
                 <!DOCTYPE html>
                 <div class="form-group">
@@ -138,15 +105,49 @@
             {{pmessage}}
             {% endif %}
         </p>          
-        <!-- <br/>
+        <hr class="rounded">
+        <div class="updatesection">
+            <h2>
+                <strong>Recent Driver Reports</strong>
+            </h2>
+            <form action="{{ url_for('home') }}" method="get">
+                <button class="btn btn-primary" type="submit">Refresh</button>    
+            </form>
+            <br/>
+            {% if message %}
+            {{message}}
+            {% endif %}
+            {% if results %}        
+                {% for result in results %}
+                    <ul>
+                        <strong>Reported by: </strong> {{ result.update_user }}&nbsp;&nbsp;&nbsp;
+                        <strong>Location: </strong> {{ result.update_location }}&nbsp;&nbsp;&nbsp;
+                        <strong>Incident: </strong> {{ result.comments }}&nbsp;&nbsp;&nbsp;
+                        <strong>Latitue: </strong> {{ result.latitude }}&nbsp;&nbsp;&nbsp;
+                        <strong>Longitude: </strong> {{ result.longitude }}&nbsp;&nbsp;&nbsp;
+                        <strong>Timestamp: </strong> {{result.update_time}}
+                        <br>
+                        <strong>Uploaded photo with this report: </strong> 
+                        <br>
+                        <img src="{{ url_for('static', filename='uploads/' + result.photo_filename) }}" alt="Uploaded Image" style="max-width: 200px;">
+                    </ul>
+                {% endfor %}
+            {% endif %}
+            <br/>
+            <a href="/updates">View All Reports</a>
+        </div>
         <hr class="rounded">
         <br/>
         <div class="analyticsection">
             <h2>
-                <strong>Traffic Incident Analytics (Past 24 hours)</strong>
+                <strong>Incident Analytics</strong>
             </h2>
+            <h4>
+            <a href="/analytics">View Incident Heatmap and Temporal Distribution (Past Year)</a>
+            </h4>
             <br/>
-            <h4 id="changeperc"></h4>
+            <br/>
+            <!-- <h4 id="changeperc"></h4>
             <br/>
             <h3>Current Data Results:</h3>
             <p id="canalyticsmsg"></p>
@@ -160,8 +161,8 @@
             <p id="neaccidents"></p>
             <p id="nwaccidents"></p>
             <p id="seaccidents"></p>
-            <p id="swaccidents"></p>
-        </div> -->
+            <p id="swaccidents"></p> -->
+        </div>
         <script src="{{ url_for('static', filename='js/mapScripts.js') }}"></script>
     </body>
 </html>

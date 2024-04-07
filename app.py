@@ -9,7 +9,8 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.sql import text
 from datetime import datetime
 from werkzeug.utils import secure_filename
-
+import pandas as pd
+from keplergl import KeplerGl
 #app = Flask(__name__)
 app = Flask(__name__, static_folder='static')
 
@@ -186,26 +187,52 @@ def updates():
 def analytics():
     # GET request
     if request.method == 'GET':
-        current_month = datetime.now().strftime('%m')
-        current_day = datetime.now().strftime('%d')
-        current_time = current_month + "/" + current_day
-        accidents = db.execute(text("SELECT count(*) FROM accidents2023 WHERE start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
-        accidents = accidents[0]
+      
+       
+        df = pd.read_csv('./Traffic_Incidents.csv')
 
-        accidentsNE = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='NE' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
-        accidentsNE = accidentsNE[0]
+        # df = pd.DataFrame(data)
+        map_config = {
+        "mapState": {
+            "latitude": 51.0447,
+            "longitude": -114.0719,
+            "zoom": 9
+        }
+        }
 
-        accidentsNW = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='NW' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
-        accidentsNW = accidentsNW[0]
+        map_1 = KeplerGl(height=1000,config=map_config)
+        
+        map_1.add_data(data=df, name='incidents')
+        file_path = os.path.join(app.static_folder, 'kepler_map.html')
+        
+        map_1.save_to_html(file_name=file_path)
 
-        accidentsSE = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='SE' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
-        accidentsSE = accidentsSE[0]
+        return render_template('analytics.html')
+       
 
-        accidentsSW = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='SW' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
-        accidentsSW = accidentsSW[0]        
+if __name__ == '__main__':
+    app.run(debug=True)
 
-        message = {'accidents':accidents, 'accidentsNE':accidentsNE, 'accidentsNW':accidentsNW, 'accidentsSE':accidentsSE, 'accidentsSW':accidentsSW}
-        return jsonify(message) 
+        # current_month = datetime.now().strftime('%m')
+        # current_day = datetime.now().strftime('%d')
+        # current_time = current_month + "/" + current_day
+        # accidents = db.execute(text("SELECT count(*) FROM accidents2023 WHERE start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
+        # accidents = accidents[0]
+
+        # accidentsNE = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='NE' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
+        # accidentsNE = accidentsNE[0]
+
+        # accidentsNW = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='NW' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
+        # accidentsNW = accidentsNW[0]
+
+        # accidentsSE = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='SE' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
+        # accidentsSE = accidentsSE[0]
+
+        # accidentsSW = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='SW' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
+        # accidentsSW = accidentsSW[0]        
+
+        # message = {'accidents':accidents, 'accidentsNE':accidentsNE, 'accidentsNW':accidentsNW, 'accidentsSE':accidentsSE, 'accidentsSW':accidentsSW}
+        # return jsonify(message) 
 
 # if __name__ == '__main__':
 #     app.run(debug=True)
