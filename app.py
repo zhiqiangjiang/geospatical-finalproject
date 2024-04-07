@@ -210,8 +210,6 @@ def analytics():
         return render_template('analytics.html')
        
 
-if __name__ == '__main__':
-    app.run(debug=True)
 
         # current_month = datetime.now().strftime('%m')
         # current_day = datetime.now().strftime('%d')
