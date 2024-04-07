@@ -326,31 +326,3 @@ function percentIncrease(x, y){
 
 autoRefresh();
 
-
-// function getLocationAndSubmit(formId) {
-//     var form = document.getElementById(formId);
-
-//     if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition(function(position) {
-//             var latitudeInput = form.querySelector('#latitude');
-//             var longitudeInput = form.querySelector('#longitude');
-
-//             latitudeInput.value = position.coords.latitude;
-//             longitudeInput.value = position.coords.longitude;
-
-//             form.submit();
-//         });
-//     } else {
-//         alert("Geolocation is not supported by this browser.");
-//     }
-// }
-// Saves and stores scroll location so it doesn't reset after page refresh
-// window.addEventListener('scroll',function() {
-//     // When scroll change, you save it on localStorage.
-//     localStorage.setItem('scrollPosition',window.scrollY);
-// },false);
-
-// window.addEventListener('load',function() {
-//     if(localStorage.getItem('scrollPosition') !== null)
-//        window.scrollTo(0, localStorage.getItem('scrollPosition'));
-// },false);

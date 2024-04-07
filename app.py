@@ -91,8 +91,19 @@ def get_positions():
     # print("ajax request")
     if session:
         positions = db.execute(text("SELECT * FROM reports ORDER BY report_time DESC")).fetchall()
-        positions_list = [{'latitude': pos.latitude, 'longitude': pos.longitude, 'location': pos.report_location, 'description': pos.comments, 'timestamp': pos.report_time, 'user': pos.report_user, 'photoname': pos.photo_filename} for pos in positions]
+        positions_list = [{'latitude': pos.latitude, 'longitude': pos.longitude, 'location': pos.report_location, 'description': pos.comments, 'timestamp': pos.report_time, 'user': pos.report_user, 'photoname': pos.photo_filename, 'videoname': pos.video_filename} for pos in positions]
         # print(positions_list)
+        # for position in positions_list:
+        #     print("video filename: ", position.get('video_filename'))
+        #     if position.get('video_filename') == "No_Video_Available.mp4":
+        #         print("video filename2: ", position.get('video_filename'))
+        #         position['video_filename'] = None
+        for position in positions_list:
+            print("video filename: ", position.get('videoname'))
+            if position.get('videoname') == "No_Video_Available.mp4":
+                print("Changing 'videoname' to None for: ", position.get('videoname'))
+                position['videoname'] = None  # Correctly use the key 'videoname'
+
         return jsonify(positions_list)
     else:
         return redirect("/login")
@@ -155,8 +166,13 @@ def home():
                 unique_filename = f'{datetime.now().strftime("%Y%m%d%H%M%S%f")}_{filename}'
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], unique_filename))
             
-
-            db.execute(text("INSERT INTO reports (report_user, comments, report_location, report_time, photo_filename,longitude,latitude) VALUES(:currentuser, :comments, :location, current_timestamp(0), :unique_filename, :longitude, :latitude)"), {"currentuser": currentuser, "comments":comments, "location": location, "unique_filename": unique_filename, "longitude": longitude, "latitude": latitude})
+            unique_filename2 = "No_Video_Available.mp4"
+            if file2:
+                filename2 = secure_filename(file2.filename)
+                unique_filename2 = f'{datetime.now().strftime("%Y%m%d%H%M%S%f")}_{filename2}'
+                file2.save(os.path.join(app.config['UPLOAD_FOLDER'], unique_filename2))
+            print("unique_filename2: ", unique_filename2)
+            db.execute(text("INSERT INTO reports (report_user, comments, report_location, report_time, photo_filename,video_filename,longitude,latitude) VALUES(:currentuser, :comments, :location, current_timestamp(0), :unique_filename, :unique_filename2, :longitude, :latitude)"), {"currentuser": currentuser, "comments":comments, "location": location, "unique_filename": unique_filename, "unique_filename2": unique_filename2,"longitude": longitude, "latitude": latitude})
             db.commit()
 
             results = db.execute(text("SELECT * FROM reports ORDER BY report_time DESC LIMIT 10")).fetchall()            
@@ -211,29 +227,6 @@ def analytics():
        
 
 
-        # current_month = datetime.now().strftime('%m')
-        # current_day = datetime.now().strftime('%d')
-        # current_time = current_month + "/" + current_day
-        # accidents = db.execute(text("SELECT count(*) FROM accidents2023 WHERE start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
-        # accidents = accidents[0]
-
-        # accidentsNE = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='NE' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
-        # accidentsNE = accidentsNE[0]
-
-        # accidentsNW = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='NW' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
-        # accidentsNW = accidentsNW[0]
-
-        # accidentsSE = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='SE' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
-        # accidentsSE = accidentsSE[0]
-
-        # accidentsSW = db.execute(text("SELECT count(*) FROM accidents2023 WHERE quadrant='SW' AND start_dt LIKE '%' || :current_time || '%'"), {"current_time":current_time}).fetchone()
-        # accidentsSW = accidentsSW[0]        
-
-        # message = {'accidents':accidents, 'accidentsNE':accidentsNE, 'accidentsNW':accidentsNW, 'accidentsSE':accidentsSE, 'accidentsSW':accidentsSW}
-        # return jsonify(message) 
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
