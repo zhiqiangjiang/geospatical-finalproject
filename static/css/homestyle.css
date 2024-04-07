@@ -13,7 +13,7 @@
     text-align: center;
 }
 
-.updatesection{
+.reportsection{
   position: relative;
   overflow: hidden;
 }
@@ -37,7 +37,7 @@ hr.rounded {
 #usignedin {position: absolute; top: 8px; left: 16px; font-size: 18px; color: whitesmoke;}
 #ulogout {position: absolute; top: 8px; right: 16px; font-size: 18px; color: whitesmoke;}
 #refreshsection {text-align: center;}
-#updatetitle {text-align: center;} */
+#reporttitle {text-align: center;} */
 
 /* 顶部区域，统一类名减少冗余 */
 .topsection, 
@@ -50,7 +50,7 @@ hr.rounded {
     padding: 1rem 0; /* 添加内边距提升可读性 */
 }
 
-.updatesection,
+.reportsection,
 .mapsection {
     position: relative;
     overflow: hidden;
@@ -99,7 +99,7 @@ hr.rounded {
     padding: 1rem;
 }
 
-#updatetitle {
+#reporttitle {
     text-align: center;
     font-size: 1.2em;
     font-weight: bold;

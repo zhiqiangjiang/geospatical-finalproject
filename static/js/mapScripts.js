@@ -252,7 +252,7 @@ async function autoRefresh(){
     oms.clearMarkers();
     markers.clearLayers();
     populateMap();
-   // updateAnalytics();
+   // reportAnalytics();
     setTimeout(autoRefresh, 600000);
 }
 
@@ -272,8 +272,8 @@ async function fetchCurrent(){
     return data;
 }
 
-// Update analytics section 
-function updateAnalytics() {
+// report analytics section 
+function reportAnalytics() {
     var accidents = 0;
     var accidentsne = 0;
     var accidentsnw = 0;

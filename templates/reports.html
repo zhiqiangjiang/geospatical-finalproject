@@ -4,7 +4,7 @@
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/homestyle.css') }}">
-        <title>VDrivers Updates Page</title>
+        <title>VDrivers Reports Page</title>
     </head>
     <body>
         <div class="utopsection">
@@ -37,15 +37,15 @@
                 {% if results %}        
                 {% for result in results %}
                     <!-- <ul>
-                        <strong>Posted by: </strong> {{ result.update_user }}&nbsp;&nbsp;&nbsp;<strong>Location: </strong> {{ result.update_location }}&nbsp;&nbsp;&nbsp;<strong>Update: </strong> {{ result.comments }}&nbsp;&nbsp;&nbsp;<strong>Timestamp: </strong> {{result.update_time}}
+                        <strong>Posted by: </strong> {{ result.report_user }}&nbsp;&nbsp;&nbsp;<strong>Location: </strong> {{ result.report_location }}&nbsp;&nbsp;&nbsp;<strong>report: </strong> {{ result.comments }}&nbsp;&nbsp;&nbsp;<strong>Timestamp: </strong> {{result.report_time}}
                     </ul> -->
                     <ul>
-                        <strong>Reported by: </strong> {{ result.update_user }}&nbsp;&nbsp;&nbsp;
-                        <strong>Location: </strong> {{ result.update_location }}&nbsp;&nbsp;&nbsp;
+                        <strong>Reported by: </strong> {{ result.report_user }}&nbsp;&nbsp;&nbsp;
+                        <strong>Location: </strong> {{ result.report_location }}&nbsp;&nbsp;&nbsp;
                         <strong>Incident: </strong> {{ result.comments }}&nbsp;&nbsp;&nbsp;
                         <strong>Latitue: </strong> {{ result.latitude }}&nbsp;&nbsp;&nbsp;
                         <strong>Longitude: </strong> {{ result.longitude }}&nbsp;&nbsp;&nbsp;
-                        <strong>Timestamp: </strong> {{result.update_time}}
+                        <strong>Timestamp: </strong> {{result.report_time}}
                         <br>
                         <strong>Uploaded photo with this report: </strong> 
                         <br>

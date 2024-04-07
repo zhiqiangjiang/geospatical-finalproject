@@ -90,8 +90,8 @@ def logout():
 def get_positions():
     # print("ajax request")
     if session:
-        positions = db.execute(text("SELECT * FROM updates ORDER BY update_time DESC")).fetchall()
-        positions_list = [{'latitude': pos.latitude, 'longitude': pos.longitude, 'location': pos.update_location, 'description': pos.comments, 'timestamp': pos.update_time, 'user': pos.update_user, 'photoname': pos.photo_filename} for pos in positions]
+        positions = db.execute(text("SELECT * FROM reports ORDER BY report_time DESC")).fetchall()
+        positions_list = [{'latitude': pos.latitude, 'longitude': pos.longitude, 'location': pos.report_location, 'description': pos.comments, 'timestamp': pos.report_time, 'user': pos.report_user, 'photoname': pos.photo_filename} for pos in positions]
         # print(positions_list)
         return jsonify(positions_list)
     else:
@@ -112,7 +112,7 @@ def allowed_file(filename):
 def home():
     if request.method == "GET":
         if session:
-            results = db.execute(text("SELECT * FROM updates ORDER BY update_time DESC LIMIT 10")).fetchall()
+            results = db.execute(text("SELECT * FROM reports ORDER BY report_time DESC LIMIT 10")).fetchall()
             if len(results) == 0:
                 return render_template("home.html", message="No Reports", welcome=("Signed in as: "+ session["user_id"]))
 
@@ -132,18 +132,18 @@ def home():
             latitude = request.form.get('latitude')
             longitude = request.form.get('longitude')
 
-            print("latitude: ", latitude)
-            print("longitude: ", longitude)
-            print("filename: ", file.filename)
-            print("filename2: ", file2.filename)
-            print("location: ", location)
-            print("comments: ", comments)
+            # print("latitude: ", latitude)
+            # print("longitude: ", longitude)
+            # print("filename: ", file.filename)
+            print("upload video name: ", file2.filename)
+            # print("location: ", location)
+            # print("comments: ", comments)
             if latitude=="" or longitude=="":
                 latitude = 0
                 longitude = 0
             
             if location=="" or comments=="":
-                results = db.execute(text("SELECT * FROM updates ORDER BY update_time DESC LIMIT 10")).fetchall()
+                results = db.execute(text("SELECT * FROM reports ORDER BY report_time DESC LIMIT 10")).fetchall()
                 if len(results) == 0:
                     return render_template("home.html", message="No Reports", error="All fields must be filled in", welcome=("Signed in as: "+ session["user_id"]))
               
@@ -156,10 +156,10 @@ def home():
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], unique_filename))
             
 
-            db.execute(text("INSERT INTO updates (update_user, comments, update_location, update_time, photo_filename,longitude,latitude) VALUES(:currentuser, :comments, :location, current_timestamp(0), :unique_filename, :longitude, :latitude)"), {"currentuser": currentuser, "comments":comments, "location": location, "unique_filename": unique_filename, "longitude": longitude, "latitude": latitude})
+            db.execute(text("INSERT INTO reports (report_user, comments, report_location, report_time, photo_filename,longitude,latitude) VALUES(:currentuser, :comments, :location, current_timestamp(0), :unique_filename, :longitude, :latitude)"), {"currentuser": currentuser, "comments":comments, "location": location, "unique_filename": unique_filename, "longitude": longitude, "latitude": latitude})
             db.commit()
 
-            results = db.execute(text("SELECT * FROM updates ORDER BY update_time DESC LIMIT 10")).fetchall()            
+            results = db.execute(text("SELECT * FROM reports ORDER BY report_time DESC LIMIT 10")).fetchall()            
             if len(results) == 0:
                 return render_template("home.html", message="No Reports", welcome=("Signed in as: "+ session["user_id"]))
            
@@ -169,17 +169,17 @@ def home():
         else:
             return redirect("/login")
 
-# Updates Page
-@app.route("/updates", methods=["GET"])
-def updates():
+# reports Page
+@app.route("/reports", methods=["GET"])
+def reports():
     # Checks if user is logged in
     if request.method == "GET":
         if session:
-            results = db.execute(text("SELECT * FROM updates ORDER BY update_time DESC")).fetchall()
+            results = db.execute(text("SELECT * FROM reports ORDER BY report_time DESC")).fetchall()
             if len(results) == 0:
-                return render_template("updates.html", message="No Reports", welcome=("Signed in as: "+ session["user_id"]))
+                return render_template("reports.html", message="No Reports", welcome=("Signed in as: "+ session["user_id"]))
 
-            return render_template("updates.html", results = results, welcome=("Signed in as: "+ session["user_id"]))
+            return render_template("reports.html", results = results, welcome=("Signed in as: "+ session["user_id"]))
         else:
             return redirect("/login")
 

@@ -5,19 +5,19 @@
 # Summary
 Our final project is a web application called Volunteered Driver Traffic Incidents Platform. The website allows users to view traffic incidents and traffic camera feeds across Calgary.
 Users can register and login with a username and password (saved to database). After logging in, users can interact with the leaflet map. Traffic Cameras are blue markers, while traffic incidents are red markers. Clicking on each marker will provide detailed information (such as a camera feed image of a traffic camera) through a pop-up.
-The map will automatically refresh every 10 minutes to check for new incident reports as well as camera images. The user can also manually refresh by clicking the Refresh Map button. Below the map, there is an update section where users can view and post reports. These reports are saved to the database. The reports are sorted by most recent appearing at the top, and the number of records is limited to 10 so the page doesn't become too long. Users can click "View All reports" to view all of the reports posted by users sorted by most recent as well. The Post Update area requires the user to enter a location description as well as an incident description. Below the post update area is the Traffic Incident Analytics section. Stats of traffic incidents within the last 24 hours are displayed and are compared to historical data. The analytics currently shows the number of incidents, the number of incidents in each quadrant, and the total increase/decrease in incidents compared to historical data.
+The map will automatically refresh every 10 minutes to check for new incident reports as well as camera images. The user can also manually refresh by clicking the Refresh Map button. Below the map, there is an report section where users can view and post reports. These reports are saved to the database. The reports are sorted by most recent appearing at the top, and the number of records is limited to 10 so the page doesn't become too long. Users can click "View All reports" to view all of the reports posted by users sorted by most recent as well. The Post report area requires the user to enter a location description as well as an incident description. Below the post report area is the Traffic Incident Analytics section. Stats of traffic incidents within the last 24 hours are displayed and are compared to historical data. The analytics currently shows the number of incidents, the number of incidents in each quadrant, and the total increase/decrease in incidents compared to historical data.
 
 new func: upload an image and poistion from phone, analytics include unofficial accidents data.
 
 # Restful API Backend
 - Login Page: Post request to authenticate user and check credentials in database / Get request to render template
 - Register Page: Post request to add new user record to database / Get request to render template
-- Home Page: Post request to add update to update list / Get request to render template and get list of reports from database
+- Home Page: Post request to add report to report list / Get request to render template and get list of reports from database
 - reports Page: Get request to render template
 
 # Example Use Cases
 - User wants to check for recent incidents as well as reports, they can use our map as our references and check the reports list for any new user reports.
-- User sees incident and wishes to post their own update of the situation. They can post a user update with the location and incident description in the update section.
+- User sees incident and wishes to post their own report of the situation. They can post a user report with the location and incident description in the report section.
 - User wants to view the roads and traffic status before leaving his house. He can view the traffic cameras on the path of his drive.
 - User can compare today's incident data and historical data by looking at the analytics section.
 
