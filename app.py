@@ -2,6 +2,7 @@ from distutils.log import error
 import os
 import requests
 import datetime
+import json
 from flask import Flask, session, render_template, request, redirect, jsonify
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -204,29 +205,21 @@ def analytics():
     # GET request
     if request.method == 'GET':
       
-       
-        df = pd.read_csv('./Traffic_Incidents.csv')
-
-        # df = pd.DataFrame(data)
-        map_config = {
-        "mapState": {
-            "latitude": 51.0447,
-            "longitude": -114.0719,
-            "zoom": 9
-        }
-        }
-
-        map_1 = KeplerGl(height=1000,config=map_config)
+        # df = pd.read_csv('./Traffic_Incidents.csv')
+        # map_config = {
+        # "mapState": {
+        #     "latitude": 51.0447,
+        #     "longitude": -114.0719,
+        #     "zoom": 9
+        # }
+        # }
+        # map_1 = KeplerGl(height=1000,config=map_config)
+        # map_1.add_data(data=df, name='incidents')
+        # file_path = os.path.join(app.static_folder, 'kepler_map.html')
         
-        map_1.add_data(data=df, name='incidents')
-        file_path = os.path.join(app.static_folder, 'kepler_map.html')
-        
-        map_1.save_to_html(file_name=file_path)
+        # map_1.save_to_html(file_name=file_path)
 
         return render_template('analytics.html')
-       
-
-
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
