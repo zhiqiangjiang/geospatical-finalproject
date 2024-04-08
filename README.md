@@ -17,7 +17,7 @@ Our project, the Volunteered Driver Traffic Incidents Platform, is a web applica
 
 * Incident Data: The driver report data includes incident place information, incident description, on-site image or video, dashboard camera videos and automatically created reporting time & position.
 
-# RESTful API Backend
+# Webpages:
 * Login Page: Handles authentication and credential verification.
 * Register Page: Adds new driver records to the database.
 * Home Page: Manages incident map and driver report submissions and retrieval.
@@ -28,7 +28,7 @@ Our project, the Volunteered Driver Traffic Incidents Platform, is a web applica
 * If drivers experience or witness an incident, they can record/report/share it on the platform.
 * View Calgary incident spatial and temporal statistics for the past year
 
-# Program-related Key Files:
+# Program Key Files:
 * app.py: Flask framework including GET/POST request logic for each page.
 * mapScripts.js: Contains logic for map creation, population, and analytics on the home page.
 * home.html, login.html, register.html, reports.html: HTML templates for different pages.
@@ -66,12 +66,12 @@ Our project, the Volunteered Driver Traffic Incidents Platform, is a web applica
 ) WITH (oids = false);
 
 # Setting up the Web Application:
-pip/pip3 install requests
-set FLASK_APP=app.py
-set FLASK_DEBUG=1
-set DATABASE_URL="postgresql://myuser:mypassword@localhost:5432/finalproject"
-python import.py
-python app.py
+* pip/pip3 install requests
+* set FLASK_APP=app.py
+* set FLASK_DEBUG=1
+* set DATABASE_URL="postgresql://myuser:mypassword@localhost:5432/finalproject"
+* python import.py
+* python app.py
 
 # Datasets Used:
 * Calgary Traffic Incidents-online real-time
