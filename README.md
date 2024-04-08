@@ -1,57 +1,47 @@
-# ENGO651-Final-Project
-- Michael Shi (10174675): Developer, Designer, QA
-- Omer Babiker (30146533): Presenter, Designer, QA
-
-# Summary
-Our final project is a web application called Volunteered Driver Traffic Incidents Platform. The website allows users to view traffic incidents and traffic camera feeds across Calgary.
-Users can register and login with a username and password (saved to database). After logging in, users can interact with the leaflet map. Traffic Cameras are blue markers, while traffic incidents are red markers. Clicking on each marker will provide detailed information (such as a camera feed image of a traffic camera) through a pop-up.
-The map will automatically refresh every 10 minutes to check for new incident reports as well as camera images. The user can also manually refresh by clicking the Refresh Map button. Below the map, there is an report section where users can view and post reports. These reports are saved to the database. The reports are sorted by most recent appearing at the top, and the number of records is limited to 10 so the page doesn't become too long. Users can click "View All reports" to view all of the reports posted by users sorted by most recent as well. The Post report area requires the user to enter a location description as well as an incident description. Below the post report area is the Traffic Incident Analytics section. Stats of traffic incidents within the last 24 hours are displayed and are compared to historical data. The analytics currently shows the number of incidents, the number of incidents in each quadrant, and the total increase/decrease in incidents compared to historical data.
-
-new func: upload an image and poistion from phone, analytics include unofficial accidents data.
-
-# Restful API Backend
-- Login Page: Post request to authenticate user and check credentials in database / Get request to render template
-- Register Page: Post request to add new user record to database / Get request to render template
-- Home Page: Post request to add report to report list / Get request to render template and get list of reports from database
-- reports Page: Get request to render template
-
-# Example Use Cases
-- User wants to check for recent incidents as well as reports, they can use our map as our references and check the reports list for any new user reports.
-- User sees incident and wishes to post their own report of the situation. They can post a user report with the location and incident description in the report section.
-- User wants to view the roads and traffic status before leaving his house. He can view the traffic cameras on the path of his drive.
-- User can compare today's incident data and historical data by looking at the analytics section.
-
-# Program-related Files
-- mapScripts.js - contains logic for home page including map creation/population and analytics
-- home.html - home page template
-- login.html - login page template
-- register.html - register page template
-- reports.html - reports page template
-- app.py - app file, contains GET/POST request logic for each page
-- import.py - file used to import historical data
-
-# How to set up the web application
-- Similar setup as Lab1: Create a heroku app, set up database, run flask and commands
-
-# Commands to run
-- pip/pip3 install requests
-- set FLASK_APP=app.py
-- set FLASK_DEBUG=1
-- set DATABASE_URL=###
-- python import.py
-
-# Troubleshooting
-- If you get a database url error then try changing postgres to postgresql in the DATABASE_URL
-- If you continue to get errors then set the database url manually in app.py and import.py
-
-# Datasets used (Traffic Incidents, Traffic Cameras)
-- https://data.calgary.ca/Transportation-Transit/Traffic-Incidents/35ra-9556/data
-- https://data.calgary.ca/Transportation-Transit/Traffic-Incidents-Archive-2017/himp-urp7/data
-- https://data.calgary.ca/Transportation-Transit/Traffic-Cameras/k7p9-kppz/data
 
 
-# SQL Files
-- SQL files in the project starting with d3s### can be used to import the database format
+Project Title: Volunteered Driver Traffic Incidents Platform
 
-# Final Presentation Link
-https://youtu.be/iDvG_8oiiKU
+Summary
+Our project, the Volunteered Driver Traffic Incidents Platform, is a web application designed to provide drivers with real-time access to traffic incidents and traffic camera feeds across Calgary. The platform allows drivers to register and log in, enabling them to interact with an interactive map displaying traffic cameras and incidents. Drivers can report and view incidents, and access incident spatical and temporal analytics for the past year.
+
+Key Features:
+Interactive Map: drivers can view traffic cameras (camera markers) and official incidents (red markers) and driver-reported incidents (green markers) on a leaflet map. Clicking on markers provides detailed information via pop-ups, including camera feed and driver uploaded images.
+
+Automatic Refresh: The map refreshes every 10 minutes to display new incident reports and camera images. Drivers can also manually refresh by clicking a button.
+
+Report Section: From website and mobile phone, drivers can post incident reports, with the most recent reports displayed. The page limits the number of reports to 10 to prevent excessive scrolling and provide a link to full report list for driver review.
+
+Traffic Incident Analytics: The platform provides statistics on traffic incidents on spatical and temporal.
+
+Incident Data: The driver report data includes incident place information, incident description, on-site image or video, dashboard camera videos and automatically created reporting time & position.
+
+RESTful API Backend
+Login Page: Handles authentication and credential verification.
+Register Page: Adds new driver records to the database.
+Home Page: Manages incident map and driver report submissions and retrieval.
+Reports Page: Renders full report templates.
+
+Example Use Cases:
+Drivers can preview road and traffic incident conditions before leaving home by viewing traffic cameras.
+If drivers experience or witness an incident, they can record/report/share it on the platform.
+View Calgary incident spatial and temporal statistics for the past year
+
+Program-related Files:
+app.py: Flask framework including GET/POST request logic for each page.
+mapScripts.js: Contains logic for map creation, population, and analytics on the home page.
+home.html, login.html, register.html, reports.html: HTML templates for different pages.
+import.py: Used for importing historical incident data.
+
+Setting up the Web Application:
+Setup up the database, and running Flask and necessary commands below:
+pip/pip3 install requests
+set FLASK_APP=app.py
+set FLASK_DEBUG=1
+set DATABASE_URL="postgresql://myuser:mypassword@localhost:5432/finalproject"
+python import.py
+
+Datasets Used:
+Calgary Traffic Incidents-online real-time
+Calgary Traffic Cameras-online real-time
+Traffic_incidents.csv contains past-year traffic incidents
