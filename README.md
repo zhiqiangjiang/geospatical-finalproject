@@ -33,6 +33,37 @@ mapScripts.js: Contains logic for map creation, population, and analytics on the
 home.html, login.html, register.html, reports.html: HTML templates for different pages.
 import.py: Used for importing historical incident data.
 
+Database Tables:
+CREATE TABLE "public"."accidents2023" (
+    "incident_info" text NOT NULL,
+    "description" text NOT NULL,
+    "start_dt" text NOT NULL,
+    "modified_dt" text NOT NULL,
+    "quadrant" text NOT NULL,
+    "longitude" text NOT NULL,
+    "latitude" text NOT NULL
+) WITH (oids = false);
+
+CREATE TABLE "public"."reports" (
+    "report_user" text NOT NULL,
+    "comments" text NOT NULL,
+    "report_id" integer DEFAULT nextval('reports_report_id_seq') NOT NULL,
+    "report_time" timestamp NOT NULL,
+    "report_location" text NOT NULL,
+    "longitude" text,
+    "latitude" text,
+    "photo_filename" text,
+    "video_filename" text,
+    CONSTRAINT "reports_pkey" PRIMARY KEY ("report_id")
+) WITH (oids = false);
+
+CREATE TABLE "public"."users" (
+    "username" text NOT NULL,
+    "password" text NOT NULL,
+    "user_id" integer DEFAULT nextval('users_user_id_seq') NOT NULL,
+    CONSTRAINT "users_pkey" PRIMARY KEY ("user_id")
+) WITH (oids = false);
+
 Setting up the Web Application:
 Setup up the database, and running Flask and necessary commands below:
 pip/pip3 install requests
@@ -45,3 +76,5 @@ Datasets Used:
 Calgary Traffic Incidents-online real-time
 Calgary Traffic Cameras-online real-time
 Traffic_incidents.csv contains past-year traffic incidents
+
+
