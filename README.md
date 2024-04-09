@@ -28,6 +28,13 @@ Our project, the Volunteered Driver Traffic Incidents Platform, is a secure webs
 * Responsive: The website incorporates AJAX (Asynchronous JavaScript and XML) for incident image and video upload and display. AJAX allows for asynchronous communication between the client and server, enabling seamless updates to web content without reloading the entire page. This enhances the user experience by providing faster and more dynamic interactions. Users can upload incident images and videos without experiencing delays or interruptions, resulting in a responsive and efficient website.
 * Interactive: The website utilizes Kepler map technology to display incident spatial and temporal statistics. By integrating Kepler maps, the website enhances interactivity and engagement, enabling users to interact with incident data in meaningful ways. Users can zoom in/out, pan, and filter data on the map, providing valuable insights into driver incidents' spatial distribution and temporal patterns.
 
+# Test Cases:
+* Image and Video Upload: file type check, duplicate filename handling with timestamp
+* Map and marker click and location verification
+* HTTPS Website secure access testing on mobile platforms (ios and android phone tested) and main browsers (Apple Safari, Google Chrome, MS Edge tested )
+* Kepler map data filter and statistics testing
+* User Registration and Login
+
 # Program Key Files:
 * app.py: Flask framework including GET/POST request logic for each page.
 * mapScripts.js: Contains logic for map creation, population, and analytics on the home page.
