@@ -12,6 +12,15 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 import pandas as pd
 from keplergl import KeplerGl
+from flask import Flask
+from OpenSSL import SSL
+import ssl
+
+context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+context.load_cert_chain('private_ca/server/server.crt', 'private_ca/server/server.key')
+# context = SSL.Context(SSL.PROTOCOL_TLSv1_2)
+# context.load_cert_chain('private_ca/server/server.crt', 'private_ca/server/server.key')
+
 #app = Flask(__name__)
 app = Flask(__name__, static_folder='static')
 
@@ -221,8 +230,9 @@ def analytics():
 
         return render_template('analytics.html')
 
+# if __name__ == '__main__':
+#     app.run(debug=True, host='0.0.0.0')
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
-
-
+    app.run(debug=True, host='0.0.0.0', ssl_context=context)
 

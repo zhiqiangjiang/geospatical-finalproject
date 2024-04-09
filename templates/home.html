@@ -94,21 +94,44 @@
                     <input type="hidden" id="longitude" name="longitude" value="">
                     <!-- <button class="btn btn-primary" type="submit">Submit</button> -->
                     <br/>
-                    <button class="btn btn-primary" type="button" onclick="getLocationAndSubmit()">Submit</button>    
+                    <button class="btn btn-primary" type="button" onclick="getLocationAndSubmit(event)">Submit</button>    
                 </div>
                 <script>
-                    function getLocationAndSubmit() {
+                    // function getLocationAndSubmit() {
+                    //     if (navigator.geolocation) {
+                    //         navigator.geolocation.getCurrentPosition(function(position) {
+                    //             document.getElementById('latitude').value = position.coords.latitude;
+                    //             document.getElementById('longitude').value = position.coords.longitude;
+                    //             // document.getElementById('subForm').submit();
+                    //             var form = document.getElementById('subForm');
+                    //             var event = new Event('submit');
+                    //             form.dispatchEvent(event); 
+                    //         });
+                    //     } else {
+                    //         alert("Geolocation is not supported by this browser.");
+                    //     }
+                    // }
+                    function getLocationAndSubmit(event) {
+                        event.preventDefault(); // Prevent the default form submission
+
                         if (navigator.geolocation) {
-                            navigator.geolocation.getCurrentPosition(function(position) {
+                            navigator.geolocation.getCurrentPosition(
+                            function(position) {
                                 document.getElementById('latitude').value = position.coords.latitude;
                                 document.getElementById('longitude').value = position.coords.longitude;
-                                document.getElementById('subForm').submit();
-                            });
+                                document.getElementById('subForm').submit(); // Submit the form after obtaining coordinates
+                            },
+                            function(error) {
+                                alert("Error getting location: " + error.message);
+                            },
+                            { timeout: 5000 }
+                            );
                         } else {
                             alert("Geolocation is not supported by this browser.");
                         }
                     }
                 </script>
+                
             </form>            
             {% if pmessage %}
             {{pmessage}}
@@ -160,9 +183,9 @@
             <h2>
                 <strong>Incident Analytics</strong>
             </h2>
-            <!-- <h4> 
+            <h4> 
                 <a href="/analytics">View Incident Spatial Heatmap and Temporal Distribution (Past Year)</a>
-            </h4> -->
+            </h4>
             <br/>
             <br/>
     

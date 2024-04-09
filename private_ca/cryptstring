@@ -1,0 +1,2 @@
+openssl req -new -x509 -days 3650 -key ca.key -out ca.crt -subj "/C=CA/ST=AB/L=CALGARY/CN=10.0.0.168:5000"
+
