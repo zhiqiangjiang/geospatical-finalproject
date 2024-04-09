@@ -6,7 +6,7 @@ Volunteered Driver Traffic Incidents Platform
 # Summary
 Our project, the Volunteered Driver Traffic Incidents Platform, is a secure website designed to provide drivers with real-time access to traffic incidents and traffic camera feeds across Calgary. The platform allows drivers to register and log in, enabling them to interact with an interactive map displaying traffic cameras and incidents. From PC or mobile browers, drivers can report and view incidents anywhere, and access incident spatical and temporal analytics for the past year.
 
-# Key Features:
+# Key Functions:
 * Interactive Map: drivers can view traffic cameras (camera markers) and official incidents (red markers) and driver-reported incidents (green markers) on a leaflet map. Clicking on markers provides detailed information via pop-ups, including camera feed and driver uploaded images.
 
 * Automatic Refresh: The map refreshes every 10 minutes to display new incident reports and camera images. Drivers can also manually refresh by clicking a button.
@@ -23,7 +23,7 @@ Our project, the Volunteered Driver Traffic Incidents Platform, is a secure webs
 * Home Page: Manages incident map and driver report submissions and retrieval.
 * Reports Page: Renders full report templates.
 
-# Website Feature:
+# Technology Features:
 * Security: The website prioritizes security by implementing SSL (Secure Sockets Layer) and HTTPS (Hypertext Transfer Protocol Secure) protocols. This ensures that all data exchanged between the client (browser) and the server is encrypted, providing a secure connection. SSL and HTTPS are essential, especially since mobile browsers require a secure connection to access location data. By using SSL and HTTPS, the website ensures the protection of sensitive information and enhances user privacy.
 * Responsive: The website incorporates AJAX (Asynchronous JavaScript and XML) for incident image and video upload and display. AJAX allows for asynchronous communication between the client and server, enabling seamless updates to web content without reloading the entire page. This enhances the user experience by providing faster and more dynamic interactions. Users can upload incident images and videos without experiencing delays or interruptions, resulting in a responsive and efficient website.
 * Interactive: The website utilizes Kepler map technology to display incident spatial and temporal statistics. By integrating Kepler maps, the website enhances interactivity and engagement, enabling users to interact with incident data in meaningful ways. Users can zoom in/out, pan, and filter data on the map, providing valuable insights into driver incidents' spatial distribution and temporal patterns.
