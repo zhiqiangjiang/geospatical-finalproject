@@ -46,15 +46,18 @@
                 &nbsp;
                 Incidents(Driver Reported): 
                 <img alt="Green Icon" src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png" style="width: 25px; height: 41px; display: inline-block;">
+                <!-- <button type="button" id="refreshButton" onclick="refreshMap()" style="float:right;margin-right:160px;">Refresh Map</button> -->
+                <!-- <button type="button" id="refreshButton" onclick="refreshMap()">Refresh Map</button>   -->
+
             </h4>
             
         </div>
-        <div id="map" style="width: 800px; height: 600px; margin-top:10px;"></div>
-        <br/>
+        <div id="map" style="height: 600px; margin-top:10px;"></div>
+        
         <div id="refreshsection">
             <button type="button" id="refreshButton" onclick="refreshMap()">Refresh Map</button>  
         </div>
-        <br/>
+        
         <hr class="rounded">
         {% if errormsg %}
         {{errormsg}}

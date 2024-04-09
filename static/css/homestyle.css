@@ -61,6 +61,7 @@ hr.rounded {
 /* 地图容器居中显示 */
 #map {
     margin: 0 auto;
+    width: 80%; /* 限制地图宽度 */
     height: 100vh; /* 或者设定一个合适的高度以适应屏幕 */
 }
 
