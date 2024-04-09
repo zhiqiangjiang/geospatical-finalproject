@@ -17,7 +17,7 @@ Our project, the Volunteered Driver Traffic Incidents Platform, is a secure webs
 
 * Incident Data: The driver report data includes incident place information, incident description, on-site image or video, dashboard camera videos and automatically created reporting time & position.
 
-# Webpages:
+# Web Pages:
 * Login Page: Handles authentication and credential verification.
 * Register Page: Adds new driver records to the database.
 * Home Page: Manages incident map and driver report submissions and retrieval.
