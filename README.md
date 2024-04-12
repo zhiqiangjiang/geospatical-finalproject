@@ -6,16 +6,17 @@ Volunteered Driver Traffic Incidents Platform
 # Summary
 Our project, the Volunteered Driver Traffic Incidents Platform, is a secure website designed to provide drivers with real-time access to traffic incidents and traffic camera feeds across Calgary. The platform allows drivers to register and log in, enabling them to interact with an interactive map displaying traffic cameras and incidents. From PC or mobile browers, drivers can report and view incidents anywhere, and access incident spatical and temporal analytics for the past year.
 
-# Key Functions:
-* Interactive Map: drivers can view traffic cameras (camera markers) and official incidents (red markers) and driver-reported incidents (green markers) on a leaflet map. Clicking on markers provides detailed information via pop-ups, including camera feed and driver uploaded images.
+# Use Cases and Key Functions:
+* Drivers can preview road and traffic incident conditions before leaving home by viewing traffic cameras.
+- Interactive Map: drivers can view traffic cameras (camera markers) and official incidents (red markers) and driver-reported incidents (green markers) on a leaflet map. Clicking on markers provides detailed information via pop-ups, including camera feed and driver uploaded images.
+- Automatic Refresh: The map refreshes every 10 minutes to display new incident reports and camera images. Drivers can also manually refresh by clicking a button.
 
-* Automatic Refresh: The map refreshes every 10 minutes to display new incident reports and camera images. Drivers can also manually refresh by clicking a button.
+* If drivers experience or witness an incident, they can record/report/share it on the platform.
+- Report Section: From PC and mobile browsers, drivers can post incident reports, with the most recent reports displayed. The page limits the number of reports to 10 to prevent excessive scrolling and provide a link to full report list for driver review. 
+- The report data includes incident place information, incident description, on-site image or video, dashboard camera videos and automatically created reporting time & position.
 
-* Report Section: From PC and mobile browsers, drivers can post incident reports, with the most recent reports displayed. The page limits the number of reports to 10 to prevent excessive scrolling and provide a link to full report list for driver review.
-
-* Traffic Incident Analytics: The platform provides spatial and temporal statistics on Calgary traffic incidents.
-
-* Incident Data: The driver report data includes incident place information, incident description, on-site image or video, dashboard camera videos and automatically created reporting time & position.
+* View Calgary incident spatial and temporal statistics for the past year
+- Traffic Incident Analytics provides spatial and temporal statistics on Calgary traffic incidents.
 
 # Web Pages:
 * Login Page: Handles authentication and credential verification.
@@ -79,7 +80,4 @@ Our project, the Volunteered Driver Traffic Incidents Platform, is a secure webs
 * Calgary Traffic Cameras-online real-time
 * Traffic_incidents.csv contains past-year traffic incidents
 
-# Example Use Cases:
-* Drivers can preview road and traffic incident conditions before leaving home by viewing traffic cameras.
-* If drivers experience or witness an incident, they can record/report/share it on the platform.
-* View Calgary incident spatial and temporal statistics for the past year
+
